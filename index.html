@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zyy Maple Leaf OS - 官方网站</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+    /* 1. 全局重置 */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    body {
+        background: linear-gradient(135deg,#1e3c72, #4b0082,#2a5298);
+        background-attachment: fixed;
+        min-height: 100vh;
+        font-family: 'Noto Sans SC', sans-serif;
+        color: #333;
+        line-height: 1.8;
+
+        /* === 关键修改：开启垂直弹性布局 === */
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* 2. 半透明遮罩层 */
+    /* === 关键修改：移除 min-height，添加 flex:1 === */
+    .overlay {
+        background-color: rgba(255, 255, 255, 0.2);
+        /* min-height: 100vh; 删除此行，防止遮挡页脚 */
+        padding: 20px;
+        flex: 1; /* 这会让紫色背景自动填满页面和页脚之间的空间 */
+    }
+
+    /* 3. 容器布局 */
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 60px; /* 增加间距，模仿 ZX 的宽松感 */
+        padding: 60px 20px;
+    }
+
+    /* 4. 左侧内容区 */
+    .content {
+        flex: 1;
+        max-width: 550px;
+    }
+
+    /* Logo 样式 */
+    .logo {
+        width: 228px;
+        height: 160px;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+    .logo:hover {
+        transform: scale(1.05);
+    }
+
+    h1 {
+        font-size: 4em;
+        color: #2c3e50;
+        margin: 20px 0;
+        font-weight: 700;
+    }
+
+    /* Tagline样式 */
+    .tagline {
+        font-size: 1.3em;
+        color: #ffffff; /* 核心：改为纯白 */
+        margin-bottom: 40px;
+        font-weight: 400;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* 增加可读性 */
+    }
+
+    /* 6. 特色列表 */
+    .features {
+        list-style: none;
+        margin: 40px 0;
+    }
+    .features li {
+        background: rgba(255, 255, 255, 0.6);
+        margin: 15px 0;
+        padding: 20px;
+        border-radius: 10px;
+        border-left: 5px solid #ff9900;
+        text-align: left;
+        font-weight: 500;
+        backdrop-filter: blur(10px); /* 毛玻璃质感 */
+        transition: transform 0.2s;
+    }
+    .features li:hover {
+        transform: translateX(10px);
+        background: rgba(255, 255, 255, 0.9);
+    }
+
+    /* 7. 下载卡片 */
+    .download-card {
+        background: rgba(255, 255, 255, 0.9);
+        padding: 30px;
+        border-radius: 12px;
+        text-align: center;
+        margin-top: 30px;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .btn {
+        display: inline-block;
+        margin: 20px 0;
+        padding: 15px 40px;
+        background-color: #ff9900;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: bold;
+        font-size: 1.2em;
+        transition: all 0.3s;
+        border: none;
+        cursor: pointer;
+    }
+    .btn:hover {
+        background-color: #e68a00;
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(255, 153, 0, 0.4);
+    }
+
+    .info-text {
+        font-size: 14px;
+        color: #666;
+        margin-top: 10px;
+    }
+
+    /* 8. 右侧图片区*/
+    .image-container {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 10px solid #333;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        background: #000;
+    }
+    .image-container img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    /* 9. 响应式 */
+    @media (max-width: 768px) {
+        .container {
+            flex-direction: column;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 2.5em;
+        }
+    }
+
+    /* === 页脚样式 === */
+    footer {
+        background: rgba(10, 15, 30, 0.8); /* 深色半透明背景 */
+        color: #a0a0a0;
+        padding: 40px 20px;
+        border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .footer-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap; /* 小屏幕自动换行 */
+        gap: 40px;
+    }
+
+    .footer-column {
+        flex: 1;
+        min-width: 200px;
+    }
+
+    .footer-column h3 {
+        color: #fff;
+        font-size: 1.2em;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #ff9900;
+        padding-bottom: 5px;
+        display: inline-block;
+    }
+
+    .footer-column ul {
+        list-style: none;
+    }
+
+    .footer-column li {
+        margin-bottom: 10px;
+    }
+
+    .footer-column a {
+        color: #a0a0a0;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+
+    .footer-column a:hover {
+        color: #ff9900; /* 悬停变亮 */
+    }
+
+    .copyright {
+        margin-top: 40px;
+        text-align: center;
+        color: #666;
+        font-size: 0.9em;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255,255,255,0.1);
+    }
+</style>
+</head>
+<body>
+    <!-- 2. 半透明遮罩层 -->
+    <div class="overlay">
+        <div class="container">
+            <div class="content">
+                <img src="ZyyOS图标.png" alt="ZyyOS图标" class="logo">
+                <p class="tagline">真正可独立运行的 Scratch 操作系统 </p>
+                <p class="tagline">革命性的操作系统体验</p>
+                <ul class="features">
+                    <li><img src="纯粹体验.png" alt="纯粹体验" width="20" height="20"><strong>纯粹体验</strong><br />去除冗余设计，还原最纯粹的操作系统交互逻辑</li>
+                    <li><img src="极速响应.png" alt="极速响应" width="20" height="20"><strong>极速响应</strong><br />该系统将Scratch编程体验提升到全新高度。无需宿主系统，独立运行，极致性能</li>
+                    <li><img src="安全沙盒.png" alt="安全沙盒" width="20" height="20"><strong>安全沙盒</strong><br />创新的权限管理系统，每个应用在隔离环境中运行，保护核心系统安全，防止恶意代码破坏系统稳定性。</li>
+                    <li><img src="多端支持.png" alt="多端支持" width="20" height="20"><strong>多端支持</strong> - 支持 x86 和 ARM 架构，可在 PC、树莓派、教育平板等多种设备上运行，满足不同场景需求。</li>
+                </ul>
+                <div class="download-card">
+                    <p style="margin-bottom: 10px;"><strong>正式版：</strong> v1.0 (26N12)</p>
+                    <a class="btn" id="downloadBtn" target="_blank">
+                        📥 立即下载体验
+                    </a>
+                    <p class="info-text">
+                        这个安装程序有安装密码，请先给
+                        <a href="https://www.bilibili.com/video/BV1BwZLBJETL/" target="_blank" rel="noopener">这个视频</a>
+                        三连，然后
+                        <a href="https://space.bilibili.com/1056203124" target="_blank" rel="noopener">关注并私信作者</a>
+                        获取安装密码。
+                    </p>
+                </div>
+            </div>
+
+            <!-- 右侧图片 -->
+            <div class="image-container">
+                <img src="system-preview.png" alt="Zyy Maple Leaf OS 界面预览">
+            </div>
+        </div>
+    </div>
+
+    <!-- === 页脚：现在位于 Body 底部 === -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>Zyy Maple Leaf OS</h3>
+                <p>一个真正可独立运行的 Scratch 操作系统，功能强大，UI精美</p>
+            </div>
+
+            <!-- 资源链接 -->
+            <div class="footer-column">
+                <h3>资源</h3>
+                <ul>
+                    <li><a href="https://pan.baidu.com/s/1woNABuTt6xWqv29ADQuQeg?pwd=MLOS" target="_blank">下载</a></li>
+                    <li><a href="https://www.bilibili.com/video/BV1BwZLBJETL/" target="_blank">文档</a></li>
+                    <li><a href="https://www.bilibili.com/video/BV1BwZLBJETL/" target="_blank">教程</a></li>
+                    <li><a href="#">博客</a></li>
+                </ul>
+            </div>
+
+            <!-- 社区链接 -->
+            <div class="footer-column">
+                <h3>社区</h3>
+                <ul>
+                    <li><a href="https://github.com/ZyyOS/ZyyOS" target="_blank">GitHub</a></li>
+                    <li><a href="https://space.bilibili.com/1056203124" target="_blank">哔哩哔哩</a></li>
+                    <li><a href="https://space.bilibili.com/1056203124" target="_blank">讨论</a></li>
+                    <li><a href="">QQ</a></li>
+                </ul>
+            </div>
+
+            <!-- 项目链接 -->
+            <div class="footer-column">
+                <h3>项目</h3>
+                <ul>
+                    <li><a href="">贡献指南</a></li>
+                    <li><a href="https://space.bilibili.com/1056203124" target="_blank">报告问题</a></li>
+                    <li><a href="https://space.bilibili.com/1056203124" target="_blank">功能请求</a></li>
+                    <li><a href="https://space.bilibili.com/1056203124" target="_blank">团队</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 底部版权 -->
+        <div class="copyright">
+            © 2026 ZYY-Office团队 | 基于 Scratch 项目 | 开源：暂不开源
+        </div>
+    </footer>
+
+    <!-- 弹窗部分 - 严格保留所有换行，不修改任何文字 -->
+    <div id="agreementPopup" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); justify-content: center; align-items: center; z-index: 9999; flex-direction: column;">
+        <div style="background: white; color: #333; padding: 30px; border-radius: 15px; width: 90%; max-width: 800px; text-align: left; box-shadow: 0 10px 30px rgba(0,0,0,0.3); white-space: pre-line; font-family: 'Noto Sans SC', sans-serif;">
+            <h2 style="font-size: 1.8rem; margin-bottom: 20px; color: #6a11cb; text-align: center;">《Zyy Maple Leaf OS使用协议》</h2>
+            <div style="font-size: 14px; line-height: 1.6; color: #555; margin-bottom: 20px; overflow-y: auto; max-height: 400px; padding-right: 10px;">
+《Zyy Maple Leaf OS使用协议》 欢迎使用由ZYY-Office开发的Zyy Maple Leaf OS！ 在您开始使用本作品之前，请您务必仔细阅读并理解以下条款。本协议是您与ZYY-Office（以下简称"我们"）之间关于Zyy Maple Leaf OS（以下简称"本作品"）的使用协议。一旦您下载、安装或使用Zyy Maple Leaf OS，即表示您已充分理解并同意接受本协议所有条款的约束。如果您不同意本协议的任何内容，请勿使用本作品。
+
+一、作品性质与用途声明
+
+1. 创意作品属性：Zyy Maple Leaf OS 是由 ZYY-Office 基于 02Engine 平台（Scratch 改版）开发的一款创意伪系统。本作品的名称、界面设计及模拟功能仅用于创意表达和娱乐目的，其表现形式并非指代任何真实的计算机操作系统。
+
+2. 开发初衷：本作品的开发初衷是出于对编程技术的热爱、学习与探索，旨在通过模拟操作系统界面和交互逻辑，为用户提供一种富有创意和趣味性的互动体验，帮助用户感受编程的魅力和计算机操作的基本原理。
+
+3. 使用限制：重要提示：本作品仅限于娱乐和教育目的使用。它不具有任何实际操作系统所具备的功能、性能、安全性及稳定性，不能用于替代任何真实的操作系统来满足您日常的计算机使用、数据处理或商业运营等需求。我们不对因将本作品误用为实际操作系统而产生的任何后果承担责任。
+
+二、知识产权与版权声明
+
+1. 版权归属：Zyy Maple Leaf OS 是基于 zxLeaf OS 的灵感进行改编和二次创作的作品，ZYY-Office 已承认有部分功能是模仿 zxLeaf OS 的。原版 zxLeaf OS 的作者为 ZX34，我们在此对原作者的贡献表示感谢。本作品（包括但不限于修改后的代码、新增及修改后的界面设计、图标、文字、音效等所有元素）的知识产权及相关权益，除注明属于原作者的部分外，均归 ZYY-Office 所有，并受《中华人民共和国著作权法》及其他相关法律法规及国际条约的保护。
+
+2. 许可范围：我们授予您一项个人的、非独家的、不可转让的、仅限于非商业用途的许可，允许您下载、安装并在您的设备上运行本作品，仅供您个人学习、研究和娱乐之用。
+
+3. 限制条款：未经 ZYY-Office 的事先书面明确授权，您不得复制、反编译或以其他方式试图获取本作品的源代码，基于本软件进行任何商业性的开发、运营或提供服务，侵犯我们或任何第三方（如原作者 ZX34）与本作品相关的任何知识产权。
+
+4. 商业授权：如果您希望将 Zyy Maple Leaf OS 用于商业目的，或进行深度的二次开发、定制化合作，请通过以下方式与我们联系，我们将根据具体情况评估并提供相应的授权，请联系QQ: 3918080979 （添加时请务必标注来意）。
+
+三、隐私保护与数据安全
+
+1. 数据收集与使用：为了提供特定的功能（如天气信息查询功能），本软件在运行过程中会获取您设备的大致地理位置信息。我们承诺，该信息仅用于上述功能的正常运行，以增强您的使用体验。
+
+2. 隐私承诺：我们非常尊重并致力于保护您的个人隐私。除上述明确说明的大致地理位置信息外，本软件不会收集、存储、使用或传输您的任何其他个人身份信息、敏感数据、通讯内容或其他隐私信息。
+
+3. 风险提示：鉴于本软件基于 02Engine 平台开发，且运行环境可能涉及复杂的网络状况，我们无法绝对保证在数据传输和处理过程中完全不存在任何泄露风险。因此，我们强烈建议您在使用本软件时，不要输入任何您认为敏感、机密或重要的个人信息。
+
+4. 用户选择：如果您不同意本软件获取大致地理位置信息，相关的功能可能无法正常使用。
+
+四、免责声明
+
+1. 本软件及其中包含的所有功能均不带任何明示或默示的担保。我们不保证本软件能满足您的特定需求，也不保证本软件的运行不会中断、及时、安全或无错误。
+
+2. 无间接损害责任：在任何情况下，ZYY-Office 或其关联方均不对您因使用或无法使用本软件而产生的任何直接、间接、偶然、特殊或后果性的损害（包括但不限于数据丢失、利润损失、商誉损害或业务中断等）承担责任。
+
+3. 第三方内容：本软件可能包含指向第三方网站或资源的链接。我们不对这些第三方内容的准确性、合法性或安全性做任何保证，您访问这些内容的风险由您自行承担。
+
+五、协议的变更
+
+我们保留随时修改本协议的权利。我们可能会通过在相关平台发布公告或在作品内提示的方式通知您协议的变更。如果您在协议修改后继续使用本作品，即视为您已接受修改后的协议。如果您不同意修改后的协议，请停止使用本作品。
+
+最后更新日期：2026年2月14日 10：44
+            </div>
+            <div style="display: flex; gap: 15px; margin-top: 25px;">
+                <button id="agreeBtn" style="flex: 1; padding: 12px; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; background: linear-gradient(to right, #4a00e0, #8e2de2); color: white; transition: all 0.2s; border: none;">
+                    同意
+                </button>
+                <button id="disagreeBtn" style="flex: 1; padding: 12px; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; background: #e53935; color: white; transition: all 0.2s; border: none;">
+                    不同意
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('downloadBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('agreementPopup').style.display = 'flex';
+        });
+
+        document.getElementById('agreeBtn').addEventListener('click', function() {
+            window.location.href = 'https://pan.baidu.com/s/1woNABuTt6xWqv29ADQuQeg?pwd=MLOS';
+        });
+
+        document.getElementById('disagreeBtn').addEventListener('click', function() {
+            document.getElementById('agreementPopup').style.display = 'none';
+            alert('您已拒绝同意使用协议，无法继续下载体验。');
+        });
+    </script>
+</body>
+</html>
