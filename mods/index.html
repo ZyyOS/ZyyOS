@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zyy Maple Leaf OS Mods - 模组社区</title>
+    <meta name="description" content="Zyy Maple Leaf OS Mods模组社区，给Zyy Maple Leaf OS增添更多丰富的可能性。">
+    <link href="//fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #D97706;
+            --primary-hover: #F59E0B;
+            --text-primary: #F3F4F6;
+            --bg-dark: #222;
+            --card-bg: rgba(45, 45, 45, 1);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            padding: 15px 0;
+            background: rgba(34, 34, 34, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-btn {
+            color: #FDE68A;
+            text-decoration: none;
+            font-size: 1.1em;
+            font-weight: 500;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 120px 20px 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3em;
+            background: linear-gradient(to right, #F59E0B, #D97706);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+
+        .tagline {
+            font-size: 1.2em;
+            color: #9CA3AF;
+            margin-bottom: 60px;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+            flex-wrap: wrap;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .container .card {
+            position: relative;
+            width: 320px;
+            height: 400px;
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            --clr: #F59E0B;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .container .card::before {
+            content: '';
+            position: absolute;
+            top: var(--y);
+            left: var(--x);
+            transform: translate(-50%, -50%);
+            background: radial-gradient(var(--clr), transparent, transparent);
+            width: 700px;
+            height: 700px;
+            opacity: 0;
+            transition: .5s, top 0s, left 0s;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .container .card:hover::before {
+            opacity: 1;
+        }
+
+        .container .card::after {
+            content: '';
+            position: absolute;
+            inset: 2px;
+            border-radius: 18px;
+            background-color: rgba(45, 45, 45, .85);
+            z-index: 0;
+        }
+
+        .card-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card h3 {
+            font-size: 1.5em;
+            color: #FDE68A;
+            margin-bottom: 10px;
+        }
+
+        .card .author {
+            font-size: 0.9em;
+            color: #9CA3AF;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        .card p {
+            font-size: 0.95em;
+            color: #D1D5DB;
+            line-height: 1.5;
+            margin-bottom: 25px;
+            flex-grow: 1;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1em;
+            box-shadow: 0 4px 0 #B45309, 0 10px 20px rgba(0, 0, 0, 0.3);
+            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0 #B45309, 0 15px 30px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(135deg, #FDBA74 0%, #F59E0B 100%);
+        }
+
+        .btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 0 0 #B45309, 0 0 0 rgba(0,0,0,0);
+        }
+        footer {
+            background: rgba(17, 17, 17, 0.9);
+            color: #FDE68A;
+            padding: 40px 20px;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            margin-top: auto;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            text-align: left;
+        }
+
+        .footer-column h3 {
+            color: #FEF3C7;
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #F59E0B;
+            padding-bottom: 5px;
+            display: inline-block;
+        }
+
+        .footer-column a {
+            color: #FCD34D;
+            text-decoration: none;
+            transition: color 0.3s;
+            display: block;
+            margin: 10px 0;
+        }
+
+        .footer-column a:hover {
+            color: #fff;
+            transform: translateX(5px);
+        }
+
+        .copyright {
+            margin-top: 40px;
+            color: #666;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-links">
+            <a href="/" class="nav-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1.13em" height="1em" viewBox="0 0 576 512"><path fill="currentColor" d="M575.8 255.5c0 18-15 32.1-32 32.1h-32l.7 160.2c0 2.7-.2 5.4-.5 8.1v16.2c0 22.1-17.9 40-40 40h-16c-1.1 0-2.2 0-3.3-.1c-1.4.1-2.8.1-4.2.1L416 512h-24c-22.1 0-40-17.9-40-40v-88c0-17.7-14.3-32-32-32h-64c-17.7 0-32 14.3-32 32v88c0 22.1-17.9 40-40 40h-55.9c-1.5 0-3-.1-4.5-.2c-1.2.1-2.4.2-3.6.2h-16c-22.1 0-40-17.9-40-40V360c0-.9 0-1.9.1-2.8v-69.7h-32c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7l255.4 224.5c8 7 12 15 11 24"></path></svg>
+                首页
+            </a>
+            <a href="/#directory" class="nav-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 448 512"><path fill="currentColor" d="M96 0C43 0 0 43 0 96v320c0 53 43 96 96 96h320c17.7 0 32-14.3 32-32s-14.3-32-32-32v-64c17.7 0 32-14.3 32-32V32c0-17.7-14.3-32-32-32zm0 384h256v64H96c-17.7 0-32-14.3-32-32s14.3-32 32-32m32-240c0-8.8 7.2-16 16-16h192c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16m16 48h192c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16s7.2-16 16-16"></path></svg>
+                目录
+      </a>
+        </div>
+    </nav>
+    <div class="main-content">
+        <h1>Zyy Maple Leaf OS Mods</h1>
+        <p class="tagline">给 Zyy Maple Leaf OS 增添更多丰富的可能性。探索由社区开发者创造的精彩模组，定制属于你的专属操作系统体验。<a href="/profile/" class="footer-column">点我联系作者投稿</a></p>
+        <div class="container">
+            <div class="card">
+                <div class="card-content">
+                    <h3>ZYY API</h3>
+                    <div class="author">作者：<a href="/profile/">ZYY-Office</a></div>
+                    <p>所有模组的基础，若要开发模组，请下载这个支持库并改编</p>
+                    <p>该模组适用于Zyy Maple Leaf OS 26N17及以上版本</p>
+                    <a href="./ZYY-API.sprite3" class="btn"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 512 512"><path fill="currentColor" d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32v242.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64v-32c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352zm368 56a24 24 0 1 1 0 48a24 24 0 1 1 0-48"/></svg>
+                    下载模组</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>Zyy Maple Leaf OS</h3>
+                <p>一个动画和UI精美，功能强大的 Scratch 伪操作系统</p>
+                <p>如何使用Mods？可以使用ZyyOS自带的安装程序来导入文件。</p>
+            </div>
+            <div class="footer-column">
+                <h3>资源</h3>
+                <ul>
+                    <li><a href="/">首页</a></li>
+                    <li><a href="/download/">下载系统</a></li>
+                    <li><a href="/document/">开发文档</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>社区</h3>
+                <ul>
+                    <li><a href="//github.com/ZyyOS" target="_blank">GitHub</a></li>
+                    <li><a href="//space.bilibili.com/1056203124" target="_blank">哔哩哔哩</a></li>
+                    <li><a href="//wiki.undz.cn/" target="_blank">维基百科</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2026 ZYY-Office团队 | ZyyOS开源：暂不开源</p>
+        </div>
+    </footer>
+
+    <script>
+        const cards = document.querySelectorAll('.container .card');
+
+        cards.forEach(card => {
+            card.onmousemove = function(e) {
+                let x = e.pageX - card.offsetLeft;
+                let y = e.pageY - card.offsetTop;
+
+                card.style.setProperty('--x', x + 'px');
+                card.style.setProperty('--y', y + 'px');
+            }
+        });
+    </script>
+</body>
+</html>
