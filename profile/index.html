@@ -163,10 +163,14 @@
             box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
 
+        /* 各个平台的悬停颜色 */
         .social-btn.bilibili:hover { color: #fb7299; }
         .social-btn.github:hover { color: #333; }
         .social-btn.qq:hover { color: #12b7f5; }
+        .social-btn.douyin:hover { color: #fe2c55; } /* 抖音红 */
+        .social-btn.email:hover { color: #EA4335; }   /* Gmail红/通用邮件红 */
 
+        /* 提示框样式 */
         .social-btn::after {
             content: attr(title);
             position: absolute;
@@ -200,8 +204,7 @@
             transition: all 0.3s ease;
         }
 
-        .social-btn:hover::after,
-        .social-btn:hover::before {
+        .social-btn:hover::after, .social-btn:hover::before {
             opacity: 1;
             visibility: visible;
             transform: translateX(-50%) translateY(0);
@@ -213,71 +216,127 @@
         }
 
         @media (max-width: 480px) {
-            .card {
-                width: 90%;
-                padding: 30px 20px;
-            }
+            .card { width: 90%; padding: 30px 20px; }
             h1 { font-size: 24px; }
         }
-          #domain-modal {
-    display: none;
+
+        #domain-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(128, 128, 128, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #d32f2f;
+            color: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            text-align: center;
+            width: 90%;
+            max-width: 500px;
+            font-family: 'Microsoft YaHei', sans-serif;
+        }
+
+        .modal-btn {
+            background-color: #ffffff;
+            color: #d32f2f;
+            border: none;
+            padding: 12px 35px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+
+        .modal-btn:hover {
+            background-color: #f5f5f5;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+
+        .modal-btn:active {
+            transform: scale(0.95);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .tiktok-modal {
+    display: none; /* 默认隐藏 */
     position: fixed;
-    z-index: 1000;
+    z-index: 2000;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(128, 128, 128, 0.8);
+    background-color: rgba(0, 0, 0, 0.8); /* 黑色半透明背景 */
     justify-content: center;
     align-items: center;
-  }
-  .modal-content {
-    background-color: #d32f2f;
-    color: #ffffff;
-    padding: 40px;
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    backdrop-filter: blur(5px);
+}
+
+.tiktok-content {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 16px;
     text-align: center;
     width: 90%;
-    max-width: 500px;
-    font-family: 'Microsoft YaHei', sans-serif;
-  }
-   .modal-btn {
-    background-color: #ffffff;
-    color: #d32f2f;
-    border: none;
-    padding: 12px 35px;
-    font-size: 16px;
+    max-width: 400px;
+    position: relative;
+    box-shadow: 0 0 20px rgba(254, 44, 85, 0.5); /* TikTok 风格阴影 */
+    animation: fadeIn 0.3s ease-out;
+}
+
+.tiktok-content h3 {
+    color: #000;
+    margin-bottom: 15px;
+    font-size: 1.5em;
+}
+
+.tiktok-content img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    border: 2px solid #eee;
+}
+
+.tiktok-close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
     font-weight: bold;
-    border-radius: 25px;
+    color: #aaa;
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-  }
+    transition: color 0.2s;
+}
 
-  .modal-btn:hover {
-    background-color: #f5f5f5;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
-  }
+.tiktok-close:hover {
+    color: #000;
+}
 
-  .modal-btn:active {
-    transform: scale(0.95);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-  }
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
     </style>
 </head>
 <body>
-
     <nav class="navbar">
         <div class="nav-links">
             <a href="/" class="nav-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" width="1.13em" height="1em" viewBox="0 0 576 512"><path fill="currentColor" d="M575.8 255.5c0 18-15 32.1-32 32.1h-32l.7 160.2c0 2.7-.2 5.4-.5 8.1v16.2c0 22.1-17.9 40-40 40h-16c-1.1 0-2.2 0-3.3-.1c-1.4.1-2.8.1-4.2.1L416 512h-24c-22.1 0-40-17.9-40-40v-88c0-17.7-14.3-32-32-32h-64c-17.7 0-32 14.3-32 32v88c0 22.1-17.9 40-40 40h-55.9c-1.5 0-3-.1-4.5-.2c-1.2.1-2.4.2-3.6.2h-16c-22.1 0-40-17.9-40-40V360c0-.9 0-1.9.1-2.8v-69.7h-32c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 21-8s15 2 21 7l255.4 224.5c8 7 12 15 11 24"></path></svg>
-                主页
+                <svg xmlns="http://www.w3.org/2000/svg" width="1.13em" height="1em" viewBox="0 0 576 512"><path fill="currentColor" d="M575.8 255.5c0 18-15 32.1-32 32.1h-32l.7 160.2c0 2.7-.2 5.4-.5 8.1v16.2c0 22.1-17.9 40-40 40h-16c-1.1 0-2.2 0-3.3-.1c-1.4.1-2.8.1-4.2.1L416 512h-24c-22.1 0-40-17.9-40-40v-88c0-17.7-14.3-32-32-32h-64c-17.7 0-32 14.3-32 32v88c0 22.1-17.9 40-40 40h-55.9c-1.5 0-3-.1-4.5-.2c-1.2.1-2.4.2-3.6.2h-16c-22.1 0-40-17.9-40-40V360c0-.9 0-1.9.1-2.8v-69.7h-32c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 21-8s15 2 21 7l255.4 224.5c8 7 12 15 11 24"></path></svg> 主页
             </a>
             <a href="/#directory" class="nav-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 448 512"><path fill="currentColor" d="M96 0C43 0 0 43 0 96v320c0 53 43 96 96 96h320c17.7 0 32-14.3 32-32s-14.3-32-32-32v-64c17.7 0 32-14.3 32-32V32c0-17.7-14.3-32-32-32zm0 384h256v64H96c-17.7 0-32-14.3-32-32s14.3-32 32-32m32-240c0-8.8 7.2-16 16-16h192c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16m16 48h192c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16s7.2-16 16-16"></path></svg>
-                目录
+                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 448 512"><path fill="currentColor" d="M96 0C43 0 0 43 0 96v320c0 53 43 96 96 96h320c17.7 0 32-14.3 32-32s-14.3-32-32-32v-64c17.7 0 32-14.3 32-32V32c0-17.7-14.3-32-32-32zm0 384h256v64H96c-17.7 0-32-14.3-32-32s14.3-32 32-32m32-240c0-8.8 7.2-16 16-16h192c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16m16 48h192c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16s7.2-16 16-16"></path></svg> 目录
             </a>
         </div>
     </nav>
@@ -286,6 +345,7 @@
         <a href="https://space.bilibili.com/1056203124"><img src="/images/pure_experience.png" alt="ZYY-Office" class="avatar"></a>
         <h1>ZYY-Office</h1>
         <p class="bio">Zyy Maple Leaf OS系统开发者，喜欢编程，还有我的世界Minecraft。</p>
+
         <div class="social-links">
             <a href="https://space.bilibili.com/1056203124" class="social-btn bilibili" title="Bilibili">
                 <i class="fa-brands fa-bilibili"></i>
@@ -296,32 +356,66 @@
             <a href="https://api.undz.cn/addqq?uid=3918080979" class="social-btn qq" title="QQ">
                 <i class="fa-brands fa-qq"></i>
             </a>
+            <a href="javascript:void(0);" onclick="openTikTokModal()" class="social-btn douyin" title="抖音">
+                <i class="fa-brands fa-tiktok"></i>
+            </a>
+            <a href="mailto:3918080979@qq.com" class="social-btn email" title="Email">
+                <i class="fa-solid fa-envelope"></i>
+            </a>
         </div>
     </div>
-<div id="domain-modal">
-  <div class="modal-content">
-    <h2>该域名不受支持！</h2>
-    <p>虽然允许访问，但是该域名将不会续费！</p>
-    <button class="modal-btn" onclick="closeModal()">确定</button>
-  </div>
+
+    <div id="domain-modal">
+        <div class="modal-content">
+            <h2>该域名不受支持！</h2>
+            <p>虽然允许访问，但是该域名将不会续费！</p>
+            <button class="modal-btn" onclick="closeModal()">确定</button>
+        </div>
+    </div>
+
+    <script>
+        (function checkDomain() {
+            const blockedDomains = [
+                "zyyos.exm2.eu.cc",
+                "z.ayd2.eu.cc",
+                "z.net2.eu.cc",
+                "zyy2.eu.cc"
+            ];
+            const currentHost = window.location.hostname;
+            const isBlocked = blockedDomains.some(domain => currentHost.includes(domain));
+            if (isBlocked) {
+                document.getElementById("domain-modal").style.display = "flex";
+            }
+        })();
+
+        function closeModal() {
+            document.getElementById("domain-modal").style.display = "none";
+        }
+    </script>
+<div id="tiktok-modal" class="tiktok-modal">
+    <div class="tiktok-content">
+        <span class="tiktok-close" onclick="closeTikTokModal()">&times;</span>
+        <h3>关注我们的抖音</h3>>
+        <img src="/images/tiktok_qr.png" alt="TikTok QR Code">
+        <p>搜索: <strong>@ZYY-Office</strong></p>
+    </div>
 </div>
+
 <script>
-(function checkDomain() {
-  const blockedDomains = [
-    "localhost",
-    "zyyos.exm2.eu.cc",
-    "z.ayd2.eu.cc",
-    "z.net2.eu.cc",
-    "zyy2.eu.cc"
-  ];
-  const currentHost = window.location.hostname;
-  const isBlocked = blockedDomains.some(domain => currentHost.includes(domain));
-  if (isBlocked) {
-    document.getElementById("domain-modal").style.display = "flex";
-  }
-})();
-function closeModal() {
-  document.getElementById("domain-modal").style.display = "none";
-}
-</script></body>
+    function openTikTokModal() {
+        document.getElementById("tiktok-modal").style.display = "flex";
+        document.body.style.overflow = "hidden";
+    }
+    function closeTikTokModal() {
+        document.getElementById("tiktok-modal").style.display = "none";
+        document.body.style.overflow = "";
+    }
+    window.onclick = function(event) {
+        var modal = document.getElementById("tiktok-modal");
+        if (event.target == modal) {
+            closeTikTokModal();
+        }
+    }
+</script>
+</body>
 </html>
