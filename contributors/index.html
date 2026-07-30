@@ -9,353 +9,421 @@
     <title>贡献名单 - Zyy Maple Leaf OS</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary-color: #D97706;
-            --primary-hover: #B45309;
-            --secondary-color: #F59E0B;
-            --text-primary: #F3F4F6;
-            --text-secondary: #78350F;
-            --bg-card: rgba(255, 255, 255, 0.55);
-            --border-color: rgba(255, 255, 255, 0.6);
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --undz-accent: #6a11cb;
-            --text-light: #92400E;
+    :root {
+        --primary-color: #D97706;
+        --primary-hover: #B45309;
+        --accent-color: #6a11cb;
+        --text-primary: #451a03;
+        --text-light: #78350F;
+        --bg-card: rgba(255, 255, 255, 0.65);
+        --border-color: rgba(255, 255, 255, 0.8);
+        --transition-smooth: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* 更Q弹的曲线 */
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        background: linear-gradient(-45deg, #FEF3C7, #FDE68A, #FDBA74, #F59E0B, #D97706, #B45309);
+        background-size: 400% 400%;
+        animation: gradientFlow 15s ease infinite;
+        min-height: 100vh;
+        font-family: 'Noto Sans SC', sans-serif;
+        color: var(--text-primary);
+        line-height: 1.8;
+        display: flex;
+        flex-direction: column;
+        overflow-x: hidden;
+        /* 增加一点背景纹理感（可选） */
+        background-attachment: fixed;
+    }
+
+    @keyframes gradientFlow {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        to {
+            opacity: 1;
+            transform: translateY(0);
         }
+    }
 
-        body {
-            background: linear-gradient(-45deg, #FEF3C7, #FDE68A, #FDBA74, #F59E0B, #D97706);
-            background-size: 400% 400%;
-            animation: gradientFlow 15s ease infinite;
-            min-height: 100vh;
-            font-family: 'Noto Sans SC', sans-serif;
-            color: #451a03;
-            line-height: 1.8;
-            display: flex;
-            flex-direction: column;
-            overflow-x: hidden;
-        }
+    @keyframes slideDown {
+        from { transform: translateY(-100%); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
 
-        @keyframes gradientFlow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+    .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        display: flex;
+        justify-content: center;
+        padding: 15px 0;
+        /* 增强毛玻璃效果 */
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+        animation: slideDown 0.8s ease-out; /* 导航栏滑入动画 */
+    }
 
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-            display: flex;
-            justify-content: center;
-            padding: 15px 0;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-        }
+    .nav-links {
+        display: flex;
+        gap: 40px;
+    }
 
-        .nav-links {
-            display: flex;
-            gap: 40px;
-        }
+    .nav-btn {
+        color: #78350F;
+        text-decoration: none;
+        font-size: 1.1em;
+        font-weight: 600;
+        padding: 10px 20px;
+        border-radius: 12px;
+        transition: var(--transition-smooth);
+        position: relative;
+        background: rgba(255, 255, 255, 0.3);
+    }
 
-        .nav-btn {
-            color: #FEF3C7;
-            text-decoration: none;
-            font-size: 1.1em;
-            font-weight: 500;
-            padding: 10px 20px;
-            border-radius: 8px;
-            transition: var(--transition);
-            position: relative;
-        }
+    .nav-btn:hover {
+        transform: translateY(-3px);
+        background: rgba(255, 255, 255, 0.9);
+        color: var(--primary-color);
+        box-shadow: 0 5px 15px rgba(217, 119, 6, 0.2);
+    }
 
-        .nav-btn:hover {
-            transform: translateY(-3px) scale(1.05);
-            background: rgba(0, 0, 0, 0.2);
-            color: #fff;
-        }
+    .overlay {
+        flex: 1;
+        width: 100%;
+        padding-top: 20px;
+    }
 
-        .overlay {
-            backdrop-filter: blur(20px);
-            padding: 20px;
-            flex: 1;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+        padding: 20px 20px 60px;
+    }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 40px;
-            padding: 100px 20px 60px;
-        }
+    .page-header {
+        text-align: center;
+        margin: 40px 0;
+        animation: fadeInUp 0.8s ease-out;
+    }
 
-        .page-header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
+    .page-header h1 {
+        font-size: 3.5em;
+        background: linear-gradient(135deg, #B45309 0%, #78350F 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 15px;
+        font-weight: 900;
+        letter-spacing: -1px;
+    }
 
-        .page-header h1 {
-            font-size: 3em;
-            background: linear-gradient(to right, #B45309, #78350F);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 20px;
-            font-weight: 800;
-        }
+    .page-header p {
+        color: var(--text-light);
+        font-size: 1.2em;
+        max-width: 700px;
+        margin: 0 auto;
+        opacity: 0.9;
+    }
 
-        .page-header p {
-            color: var(--text-secondary);
-            font-size: 1.1em;
-            max-width: 700px;
-            margin: 0 auto;
-        }
+    .contributors-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        width: 100%;
+        padding-bottom: 20px;
+    }
 
-        .contributors-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            width: 100%;
-        }
+    .contributor-card {
+        background: var(--bg-card);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-radius: 20px;
+        padding: 35px 25px;
+        border: 1px solid var(--border-color);
+        box-shadow: 0 10px 30px rgba(217, 119, 6, 0.08);
+        transition: var(--transition-smooth);
+        text-align: center;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        opacity: 0;
+        animation: fadeInUp 0.8s ease-out forwards;
+    }
 
-        .contributor-card {
-            background: var(--bg-card);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
-            padding: 25px;
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 10px 30px rgba(217, 119, 6, 0.15);
-            transition: var(--transition);
-            text-align: center;
-            cursor: pointer;
-        }
+    .contributor-card:nth-child(odd) { animation-delay: 0.1s; }
+    .contributor-card:nth-child(even) { animation-delay: 0.25s; }
+    .contributor-card:nth-child(3n) { animation-delay: 0.4s; }
 
-        .contributor-card:hover {
-            transform: translateY(-5px) scale(1.02);
-            border-color: var(--undz-accent);
-            box-shadow: 0 15px 40px rgba(106, 17, 203, 0.2);
-        }
+    .contributor-card:hover {
+        transform: translateY(-10px) scale(1.02);
+        background: rgba(255, 255, 255, 0.85);
+        border-color: var(--primary-color);
+        box-shadow: 0 20px 40px rgba(217, 119, 6, 0.2);
+        z-index: 2;
+    }
 
-        .avatar {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            border: 3px solid var(--secondary-color);
-            margin: 0 auto 15px;
-            background: #ddd;
-            overflow: hidden;
-            transition: transform 0.3s;
-        }
+    .avatar {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        border: 3px solid var(--primary-color);
+        margin: 0 auto 20px;
+        background: #fff;
+        overflow: hidden;
+        transition: var(--transition-smooth);
+        position: relative;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
 
-        .avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+    .avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
 
-        .contributor-card:hover .avatar {
-            transform: scale(1.1);
-        }
+    .contributor-card:hover .avatar {
+        transform: scale(1.1) rotate(5deg);
+        border-color: var(--accent-color);
+    }
 
-        .contributor-name {
-            font-size: 1.4em;
-            color: #78350F;
-            margin: 10px 0;
-            font-weight: 700;
-        }
+    .contributor-card:hover .avatar img {
+        transform: scale(1.1);
+    }
 
-        .role-tag {
-            display: inline-block;
-            background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
-            color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.9em;
-            font-weight: 500;
-            margin-bottom: 15px;
-        }
+    .role-tag {
+        display: inline-block;
+        background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
+        color: white;
+        padding: 6px 18px;
+        border-radius: 30px;
+        font-size: 0.85em;
+        font-weight: 700;
+        margin-bottom: 15px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        box-shadow: 0 4px 10px rgba(217, 119, 6, 0.3);
+        transition: var(--transition-smooth);
+    }
 
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 15px;
-            flex-wrap: wrap;
-        }
+    .contributor-card:hover .role-tag {
+        background: var(--accent-color);
+        transform: scale(1.05);
+    }
 
-        .social-links a {
-            color: #B45309;
-            font-size: 1.2em;
-            transition: color 0.3s;
-        }
+    .contributor-name {
+        font-size: 1.5em;
+        color: var(--text-primary);
+        margin: 10px 0;
+        font-weight: 800;
+        transition: color 0.3s;
+    }
 
-        .social-links a:hover {
-            color: #6a11cb;
-            transform: translateY(-3px);
-        }
+    .contributor-card:hover .contributor-name {
+        color: var(--accent-color);
+    }
 
-        footer {
-            background: rgba(69, 26, 3, 0.9);
-            color: #FDE68A;
-            padding: 40px 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.3);
-            margin-top: 20px;
-            text-align: center;
-        }
+    .contributor-card p {
+        color: var(--text-light);
+        font-size: 0.95em;
+        margin-bottom: 20px;
+    }
 
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-        }
+    .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 20px;
+        flex-wrap: wrap;
+    }
 
-        .footer-column h3 {
-            color: #FEF3C7;
-            font-size: 1.2em;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #F59E0B;
-            padding-bottom: 5px;
-            display: inline-block;
-        }
+    .social-links a {
+        color: var(--text-light);
+        font-size: 1.1em;
+        font-weight: 500;
+        text-decoration: none;
+        padding: 8px 12px;
+        border-radius: 8px;
+        transition: var(--transition-smooth);
+        background: rgba(255,255,255,0.4);
+    }
 
-        .footer-column a {
-            color: #FCD34D;
-            text-decoration: none;
-            transition: color 0.3s;
-            display: block;
-            margin: 10px 0;
-        }
+    .social-links a:hover {
+        background: var(--primary-color);
+        color: #fff;
+        transform: translateY(-4px);
+        box-shadow: 0 5px 15px rgba(217, 119, 6, 0.3);
+    }
 
-        .footer-column a:hover {
-            color: #fff;
-            transform: translateX(5px);
-        }
+    .special-thanks {
+        text-align: center;
+        margin-top: 60px;
+        padding: 30px;
+        background: rgba(255, 255, 255, 0.4);
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(5px);
+        animation: fadeInUp 1s ease-out 0.5s forwards;
+        opacity: 0;
+    }
 
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-          #domain-modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(128, 128, 128, 0.8);
-    justify-content: center;
-    align-items: center;
-  }
-  .modal-content {
-    background-color: #d32f2f;
-    color: #ffffff;
-    padding: 40px;
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-    text-align: center;
-    width: 90%;
-    max-width: 500px;
-    font-family: 'Microsoft YaHei', sans-serif;
-  }
-   .modal-btn {
-    background-color: #ffffff;
-    color: #d32f2f;
-    border: none;
-    padding: 12px 35px;
-    font-size: 16px;
-    font-weight: bold;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-  }
+    .special-thanks h3 {
+        color: var(--text-primary);
+        margin-bottom: 10px;
+        font-size: 1.4em;
+    }
 
-  .modal-btn:hover {
-    background-color: #f5f5f5;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
-  }
+    footer {
+        background: rgba(69, 26, 3, 0.95);
+        color: #FDE68A;
+        padding: 50px 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        margin-top: auto;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
 
-  .modal-btn:active {
-    transform: scale(0.95);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-  }
-.tiktok-modal {
-    display: none; /* 默认隐藏 */
-    position: fixed;
-    z-index: 2000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8); /* 黑色半透明背景 */
-    justify-content: center;
-    align-items: center;
-    backdrop-filter: blur(5px);
-}
+    .footer-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 40px;
+        text-align: left;
+    }
 
-.tiktok-content {
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 16px;
-    text-align: center;
-    width: 90%;
-    max-width: 400px;
-    position: relative;
-    box-shadow: 0 0 20px rgba(254, 44, 85, 0.5); /* TikTok 风格阴影 */
-    animation: fadeIn 0.3s ease-out;
-}
+    .footer-column h3 {
+        color: #FEF3C7;
+        font-size: 1.2em;
+        margin-bottom: 25px;
+        position: relative;
+        padding-left: 15px;
+    }
 
-.tiktok-content h3 {
-    color: #000;
-    margin-bottom: 15px;
-    font-size: 1.5em;
-}
+    .footer-column h3::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 2px;
+        height: 18px;
+        width: 4px;
+        background: var(--primary-color);
+        border-radius: 2px;
+    }
 
-.tiktok-content img {
-    width: 100%;
-    height: auto;
-    border-radius: 12px;
-    margin-bottom: 20px;
-    border: 2px solid #eee;
-}
+    .footer-column a {
+        color: #FCD34D;
+        text-decoration: none;
+        transition: var(--transition-smooth);
+        display: block;
+        margin: 12px 0;
+        opacity: 0.8;
+        padding-left: 10px;
+    }
 
-.tiktok-close {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 28px;
-    font-weight: bold;
-    color: #aaa;
-    cursor: pointer;
-    transition: color 0.2s;
-}
+    .footer-column a:hover {
+        color: #fff;
+        opacity: 1;
+        transform: translateX(10px);
+        padding-left: 15px;
+    }
 
-.tiktok-close:hover {
-    color: #000;
-}
+    .copyright {
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        font-size: 0.9em;
+        opacity: 0.6;
+    }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.9); }
-    to { opacity: 1; transform: scale(1); }
-}
-    </style>
-</head>
+    #domain-modal, .tiktok-modal {
+        display: none;
+        position: fixed;
+        z-index: 2000;
+        left: 0; top: 0;
+        width: 100%; height: 100%;
+        justify-content: center;
+        align-items: center;
+        backdrop-filter: blur(5px);
+        animation: fadeIn 0.3s ease-out;
+    }
+
+    .modal-content, .tiktok-content {
+        background-color: #fff;
+        padding: 40px;
+        border-radius: 20px;
+        text-align: center;
+        width: 90%;
+        max-width: 450px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        transform: scale(0.9);
+        animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        position: relative;
+    }
+
+    .tiktok-content { background: #fff; }
+    .modal-content { background: #d32f2f; color: #fff; }
+    .modal-content h2 { color: #fff; margin-bottom: 15px; }
+    .modal-content p { color: #ffebee; }
+
+    .tiktok-close {
+        position: absolute;
+        top: 15px; right: 20px;
+        font-size: 30px;
+        font-weight: bold;
+        color: #aaa;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+    .tiktok-close:hover { color: #000; }
+
+    .modal-btn {
+        background-color: #fff;
+        color: #d32f2f;
+        border: none;
+        padding: 12px 35px;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: 0.3s;
+        margin-top: 20px;
+    }
+    .modal-btn:hover {
+        background-color: #f5f5f5;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    @keyframes popIn {
+        to { transform: scale(1); }
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+</style>
 <body>
     <nav class="navbar">
         <div class="nav-links">
@@ -424,9 +492,8 @@
                         <a href="mailto:zhanghaoyu19281@gmail.com" rel="noopener noreferrer" target="_blank" aria-label="Email" data-balloon-pos="up">Gmail</a>
                     </div>
                 </div>
-            </div>
 
-            <div class="contributor-card">
+                <div class="contributor-card">
                     <div class="avatar">
                         <a href="https://space.bilibili.com/3546826596681862"><img src="/images/logo4.png" alt="一只小羊"></a>
                     </div>
@@ -440,12 +507,12 @@
                 </div>
             </div>
 
+
             <div style="text-align: center; margin-top: 50px; padding: 20px; background: rgba(255, 255, 255, 0.3); border-radius: 12px;">
                 <h3 style="color: #78350F; margin-bottom: 10px;">特别鸣谢</h3>
                 <p style="color: #92400E;">感谢所有参与测试、提供建议和捐赠支持的用户。开源社区的力量让 ZyyOS 变得更强大。</p>
             </div>
         </div>
-    </div>
 
     <footer>
         <div class="footer-container">
@@ -520,7 +587,7 @@ function closeModal() {
 <div id="tiktok-modal" class="tiktok-modal">
     <div class="tiktok-content">
         <span class="tiktok-close" onclick="closeTikTokModal()">&times;</span>
-        <h3>关注我们的抖音</h3>>
+        <h3>关注我们的抖音</h3>
         <img src="/images/tiktok_qr.png" alt="TikTok QR Code">
         <p>搜索: <strong>@ZYY-Office</strong></p>
     </div>
